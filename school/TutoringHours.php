@@ -51,6 +51,31 @@ class TutoringHours{
 	    }
 	}
 
+	//Revisa si esta tutoring hour ya existe
+	public function check(){
+		try{
+			$query = $this->con->prepare("SELECT id FROM academic_consulting_hours WHERE start_hour = '$this->start' AND end_hour = '$this->end'
+				AND days = '$this->days'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Existe, entonces NO SE INSERTA, solo recopilaré la id
+				$this->setId($statement[0]);
+			}
+			else{
+				$query = $this->con->prepare('INSERT INTO academic_consulting_hours(start_hour, end_hour, days) values (?,?,?)');
+							$query->bindParam(1, $this->start, PDO::PARAM_STR);
+							$query->bindParam(2, $this->end, PDO::PARAM_STR);
+							$query->bindParam(3, $this->days, PDO::PARAM_STR);
+				$query->execute();
+				$this->id = $this->con->lastInsertID();
+				$this->con->close();
+			}
+		}
+				catch(PDOException $e) {
+					echo  $e->getMessage();
+			}
+	}
+
     public function update(){
 		try{
 			$query = $this->con->prepare('UPDATE academic_consulting_hours SET start_hour = ?, end_hour = ? , days = ? WHERE id = ? ');

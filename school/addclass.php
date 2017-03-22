@@ -32,13 +32,16 @@
 
     //Save new subject
     $subject->setName($post->subjectname);
-    $subject->save();
+    //Este check sustituye a save, revisa que exista y si no, lo agrega
+    $subject->check();
 
     //Save class
     $classhours->setStart($post->start);
     $classhours->setEnd($post->end);
     $classhours->setDays($post->days);
-    $classhours->save();
+
+    //Este check sustituye a save, revisa que exista y si no, lo agrega
+    $classhours->check();
 
     //Save teacher
     $teacher->add_class($classhours->getId());

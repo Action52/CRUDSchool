@@ -57,12 +57,20 @@ class Teacher{
 	//Inserta una clase nueva
 	public function add_class($idClass){
 		try{
-			$query = $this->con->prepare("INSERT INTO teacher_class(id_teacher, id_class)
-			values ('$this->id',
-				'$idClass'
-			)");
-			$query->execute();
-			$this->con->close();
+			$query = $this->con->prepare("SELECT id FROM teacher_class WHERE id_teacher = '$this->id' AND id_class = '$idClass'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Si existe la relacion...
+
+			}
+			else{
+				$query = $this->con->prepare("INSERT INTO teacher_class(id_teacher, id_class)
+				values ('$this->id',
+					'$idClass'
+				)");
+				$query->execute();
+				$this->con->close();
+			}
 		}
         catch(PDOException $e) {
 	        echo  $e->getMessage();
@@ -72,12 +80,18 @@ class Teacher{
 	//Inserta un tutoring nuevo
 	public function add_tutoring($idTutoring,$av){
 		try{
-			$query = $this->con->prepare("INSERT INTO teacher_has_tutoring_hours(id_teacher, id_tutoring, available)
-			values ('$this->id',
-				'$idTutoring',
-				'$av')");
-			$query->execute();
-			$this->con->close();
+			$query = $this->con->prepare("SELECT id FROM teacher_has_tutoring_hours WHERE id_teacher = '$this->id' AND id_tutoring = '$idTutoring'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Si existe la relacion...
+
+			}
+			else{
+				$query = $this->con->prepare("INSERT INTO teacher_has_tutoring_hours(id_teacher, id_tutoring, available)
+					values ('$this->id','$idTutoring', '$av')");
+				$query->execute();
+				$this->con->close();
+			}
 		}
 				catch(PDOException $e) {
 					echo  $e->getMessage();
@@ -87,10 +101,20 @@ class Teacher{
 	//Inserta una subject nuevo
 	public function add_subject($idSubject){
 		try{
-			$query = $this->con->prepare("INSERT INTO teacher_subject(id_teacher, id_subject)
-			values ('$this->id', '$idSubject')");
-			$query->execute();
-			$this->con->close();
+			$query = $this->con->prepare("SELECT id FROM teacher_subject WHERE id_teacher = '$this->id' AND id_subject = '$idSubject'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Si existe la relacion...no hago nada
+
+			}
+			else{
+				$query = $this->con->prepare("INSERT INTO teacher_subject(id_teacher, id_subject)
+				values ('$this->id',
+					'$idSubject'
+				)");
+				$query->execute();
+				$this->con->close();
+			}
 		}
         catch(PDOException $e) {
 	        echo  $e->getMessage();
@@ -160,7 +184,7 @@ class Teacher{
 		}
 
     public static function baseurl() {
-         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/html/usuario2/";
+         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/2doParcial/CRUDSchool/school/";
     }
 
     public function checkUser($user) {

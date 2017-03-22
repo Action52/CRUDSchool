@@ -38,6 +38,29 @@ class Subject{
 	    }
 	}
 
+	//Revisa si el subject ya existe
+	public function check(){
+		try{
+			$query = $this->con->prepare("SELECT id FROM subject WHERE name = '$this->name'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Existe, entonces NO SE INSERTA, solo recopilaré la id
+				$this->setId($statement[0]);
+			}
+			else{
+				$query = $this->con->prepare('INSERT INTO subject(name) values (?)');
+	            $query->bindParam(1, $this->name, PDO::PARAM_STR);
+				$query->execute();
+				$this->con->close();
+
+				$this->id = $this->con->lastInsertID();
+				$this->con->close();
+			}
+		}
+				catch(PDOException $e) {
+					echo  $e->getMessage();
+			}
+	}
 
 	//Inserta una clase nueva
 	public function add_class($name, $start, $end, $days){

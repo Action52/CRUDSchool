@@ -36,7 +36,8 @@
     $tutoringhours->setStart($post->start);
     $tutoringhours->setEnd($post->end);
     $tutoringhours->setDays($post->days);
-    $tutoringhours->save();
+    //Este check sustituye a save, revisa que exista y si no, lo agrega
+    $tutoringhours->check();
 
     //Save teacher
     $teacher->add_tutoring($tutoringhours->getId(), $availability);

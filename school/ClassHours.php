@@ -51,6 +51,30 @@ class ClassHours{
 	    }
 	}
 
+	//Revisa si esta class hour ya existe
+	public function check(){
+		try{
+			$query = $this->con->prepare("SELECT id FROM class_hours WHERE start_hour = '$this->start' AND end_hour = '$this->end'
+				AND days = '$this->days'");
+			$result = $query->execute();
+			$statement = $query->fetch();
+			if($statement){ //Existe, entonces NO SE INSERTA, solo recopilaré la id
+				$this->setId($statement[0]);
+			}
+			else{
+				$query = $this->con->prepare('INSERT INTO class_hours(start_hour, end_hour, days) values (?,?,?)');
+							$query->bindParam(1, $this->start, PDO::PARAM_STR);
+							$query->bindParam(2, $this->end, PDO::PARAM_STR);
+							$query->bindParam(3, $this->days, PDO::PARAM_STR);
+				$query->execute();
+				$this->id = $this->con->lastInsertID();
+				$this->con->close();
+			}
+		}
+				catch(PDOException $e) {
+					echo  $e->getMessage();
+			}
+	}
 
 	//Inserta una clase nueva
 	public function add_class($name, $start, $end, $days, $id){
