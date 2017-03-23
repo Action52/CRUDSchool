@@ -38,6 +38,9 @@ class Admin{
         $this->department= $department;
     }
 
+
+
+
 	//insertamos profesores en una tabla con postgreSql
 	public function save() {
 		try{
@@ -53,6 +56,16 @@ class Admin{
 	    }
 	}
 
+
+	public function generateToken(){
+		$token = "";
+		for($i = 0; $i < 16; $i++){
+			$random = rand(65,90);
+			$token .= chr($random);
+		}
+
+		return $token;
+	}
 
 	//Inserta una clase nueva
 	public function add_class($idClass){
