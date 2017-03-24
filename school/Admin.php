@@ -83,16 +83,16 @@ class Admin{
 				$query = $this->con->prepare("UPDATE tokens SET used = 1 WHERE token = '$tkn'");
 				$query->execute();
 				if(substr($mail,0,1) == "L"){
-					$query = $this->con->prepare("INSERT INTO login (username, password, type) VALUES ('$name', '$pswd',1)");
+					$query = $this->con->prepare("INSERT INTO teacher (te_name, password) VALUES ('$name', '$pswd')");
 				}
 				else{
-					$query = $this->con->prepare("INSERT INTO login (username, password, type) VALUES ('$name', '$pswd',2)");
+					$query = $this->con->prepare("INSERT INTO student (st_name, password) VALUES ('$name', '$pswd')");
 				}
 				$query->execute();
 
 
 				$this->con->close();
-				
+
 			}
 			else{
 				echo "<script>alert('Token does not exist or has been already used.');</script>";
