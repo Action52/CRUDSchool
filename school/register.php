@@ -20,7 +20,7 @@
           <form action="reg.php" method="POST">
                 <div class="form-group">
                     <label for="subjectname">Name</label>
-                    <input type="text" name="subjectname" value="" class="form-control" id="subjectname" placeholder="Name">
+                    <input type="text" name="name" value="" class="form-control" id="name" placeholder="Name">
                 </div>
                 <div class="form-group">
                     <label for="start">Password</label>

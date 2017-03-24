@@ -56,6 +56,64 @@ class Admin{
 	    }
 	}
 
+	public function checkMail($mail){
+		if(strlen($mail) != 18){ //A01322275@itesm.mx
+			return 1;
+		}
+		if(substr($mail,0,1) == "L" || substr($mail,0,1) == "A"){ //Si empieza con L o A, vamos bien
+
+			if(substr($mail,9) == "@itesm.mx"){
+				return 0;
+			}
+		}
+		return 1;
+	}
+
+	public function confirmToken($tkn){
+		try{
+			$query = $this->con->prepare("SELECT * FROM tokens WHERE token = '$tkn'");
+			$query->execute();
+			$statement = $query->fetch();
+			$mail = $statement['username'];
+			$pswd = $statement['password'];
+			$used = $statement['used'];
+			$name = $statement['u_name'];
+
+			if($statement && $used == 0){ //Existe token y no se ha usado, se registra
+				$query = $this->con->prepare("UPDATE tokens SET used = 1 WHERE token = '$tkn'");
+				$query->execute();
+				if(substr($mail,0,1) == "L"){
+					$query = $this->con->prepare("INSERT INTO login (username, password, type) VALUES ('$name', '$pswd',1)");
+				}
+				else{
+					$query = $this->con->prepare("INSERT INTO login (username, password, type) VALUES ('$name', '$pswd',2)");
+				}
+				$query->execute();
+
+
+				$this->con->close();
+				
+			}
+			else{
+				echo "<script>alert('Token does not exist or has been already used.');</script>";
+			}
+
+		}
+				catch(PDOException $e) {
+					echo  $e->getMessage();
+			}
+	}
+
+	public function addToken($mail, $pswd, $tkn, $u_name){
+		try{
+			$query = $this->con->prepare("INSERT INTO tokens(token, used, username, password, u_name) VALUES ('$tkn',0,'$mail','$pswd', '$u_name')");
+			$query->execute();
+			$this->con->close();
+		}
+        catch(PDOException $e) {
+	        echo  $e->getMessage();
+	    }
+	}
 
 	public function generateToken(){
 		$token = "";

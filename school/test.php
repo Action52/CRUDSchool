@@ -10,7 +10,12 @@
     echo "<br>";
   }
 
-
+  echo $admin->checkMail("L0132223@itesm.mx");
+  echo "<br>";
+  echo $admin->checkMail("A01322275@itesm.mx");
+  echo "<br>";
+  echo $admin->checkMail("R0132223@itesm.mx");
+  echo "<br>";
 ?>
 </body>
 </html>
