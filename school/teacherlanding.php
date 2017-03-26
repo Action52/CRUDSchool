@@ -13,32 +13,36 @@ include('session.php');
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
     </head>
     <body>
-        
+
         <div class="container">
             <div class="col-lg-12">
                 <h2 class="text-center text-primary">Bienvenido profesor</h2>
-                <div class="col-lg-1" style="margin-bottom: 10px">
+                <div class= "text-right">
+                 <b id="logout"><a href="logout.php">Log Out</a></b>
+                </div>
+                <div class="col-lg-12" style="margin-bottom: 10px">
 
                     <?php
                         $id= $_SESSION['id'];
                         $_SESSION['id'] = $id;
-                        
+
                     ?>
 
-                    <a href = "app/aplist.php"> verificar mis asesorias </a>
-
-                    <a href = "setclasshours.php"> fijar horas de clase </a>
-                    <a href = "settutoring.php"> fijar horas de asesorias</a>
-
-
-
+                    <a href = "app/aplist.php"> Verificar mis asesorias </a>
+                    <br><br>
+                    <a href = "setclasshours.php"> Fijar horas de clase </a>
+                    <br><br>
+                    <a href = "settutoring.php"> Fijar horas de asesorias</a>
 
 
-                    
+
+
+
+
                 </div>
 
+                <center><img src = "img/profesor.jpg"></center>
+            </div>
 
-                 <b id="logout"><a href="logout.php">Log Out</a></b> 
-              
     </body>
 </html>

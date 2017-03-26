@@ -78,6 +78,33 @@ class logscheme  {
     }
 
 
+		public function getSpecific($id_teacher, $startDate, $endDate){
+				try{
+
+								$query = $this->con->prepare("SELECT student_requests_tutoring.id, student.st_name, teacher.te_name,
+								  subject.name, academic_consulting_hours.start_hour, academic_consulting_hours.end_hour,
+								  student_requests_tutoring.topic, student_requests_tutoring.date
+								FROM
+								  student_requests_tutoring, student, teacher, subject, academic_consulting_hours
+								WHERE
+								  student.id = student_requests_tutoring.id_student AND
+								  teacher.id = student_requests_tutoring.id_teacher AND
+								  subject.id = student_requests_tutoring.id_subject AND
+								  academic_consulting_hours.id = student_requests_tutoring.id_tutoring AND
+								  student_requests_tutoring.date >= '$startDate' AND
+								  student_requests_tutoring.date <= '$endDate';
+								");
+								$query->execute();
+								$this->con->close();
+								return $query->fetchAll(PDO::FETCH_OBJ);
+
+				}
+				catch(PDOException $e){
+						echo  $e->getMessage();
+				}
+		}
+
+
 
 
 
@@ -91,7 +118,7 @@ class logscheme  {
     }
 
     public static function baseurl() {
-         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/crudschool/";
+         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/2doParcial/CRUDSchool/school/";
     }
 
     public function checkUser($user) {

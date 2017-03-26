@@ -1,6 +1,6 @@
 <?php
 //AQUI CONECTAMOS A LA BASE DE DATOS DE POSTGRES
-$conex = "host=localhost port=5432 dbname=tutoringnew user=postgres password=";
+$conex = "host=localhost port=5432 dbname=tutoring user=leonvillapun password=schwarz";
 $cnx = pg_connect($conex) or die ("<h1>Error de conexion.</h1> ". pg_last_error());
 session_start();
 
@@ -38,14 +38,14 @@ if(trim($_POST["username"]) != "" && trim($_POST["password"]) != "")
       $id = $row["id"];
 
       $_SESSION['id'] = $id;
-      
+
     }
     }
- 
+
   	if($row["type"] == 2){
       $_SESSION['login_user']=$username;
   		header("Location: app/list.php");
-        
+
 
         $result = pg_query('SELECT id FROM student WHERE st_name = \''.$username.'\'');
 
@@ -53,7 +53,7 @@ if(trim($_POST["username"]) != "" && trim($_POST["password"]) != "")
       $id = $row["id"];
 
       $_SESSION['id'] = $id;
-      
+
     }
 
 
@@ -75,7 +75,7 @@ if(trim($_POST["username"]) != "" && trim($_POST["password"]) != "")
    </SCRIPT>*/
   }else{
    echo 'Password incorrecto';
-   header("index.html");
+   header("index.php");
 
   }
  }else{
