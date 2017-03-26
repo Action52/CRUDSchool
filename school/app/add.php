@@ -1,3 +1,10 @@
+
+<?php
+include('../session.php');
+
+
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,17 +25,64 @@
                     <input type="int" name="id_student" value="" class="form-control" id="id_student" placeholder="id_student">
                 </div>
                 <div class="form-group">
-                    <label for="id_student">id_teacher</label>
-                    <input type="int" name="id_teacher" value="" class="form-control" id="id_teacher" placeholder="id_teacher">
+                    <label for="id_student">tutoring</label>
+                    <?php
+
+                    $conex = "host=localhost port=5432 dbname=tutoringnew user=postgres password=";
+                    $cnx = pg_connect($conex) or die ("<h1>Error de conexion.</h1> ". pg_last_error());
+                    $query = "SELECT * FROM asesorias";
+$result = pg_query($cnx, $query) or die("Error in query: $query." . pg_last_error($connection));
+
+
+
+if (pg_num_rows($result) == 0) 
+{
+    echo "Currently no appointments.<br/>";
+}
+else
+{
+    while ($myrow = pg_fetch_row($result)) 
+    {
+        echo "<input type='radio' name='id_teacher' value='" . $myrow[0] . "'/>" .  $myrow[1]."-".$myrow[2] ."-". $myrow[3] ."<br/>";
+    }
+}
+
+
+pg_close($cnx);
+                    ?>
                 </div>
-                <div class="form-group">
-                    <label for="id_subject">id_subject</label>
-                    <input type="int" name="id_subject" value="" class="form-control" id="id_subject" placeholder="id_subject">
+
+
+
+                 <div class="form-group">
+                    <label for="id_subject">subject</label>
+                    <select name="id_subject" Id="id_subject">
+ <option value="">--- Select ---</option>
+                    <?php
+
+                    $conex = "host=localhost port=5432 dbname=tutoringnew user=postgres password=";
+                    $cnx = pg_connect($conex) or die ("<h1>Error de conexion.</h1> ". pg_last_error());
+                
+
+ $list = pg_query($cnx, "select * from subject ");
+
+ 
+
+ while($row_list=pg_fetch_assoc($list)){
+ ?>
+ <option value=<?php echo $row_list["id"]; ?>>
+ <?php echo $row_list["name"]; ?> 
+ </option>
+ <?php
+ }
+ ?>
+ </select>
+ 
+
+
+                    
                 </div>
-                <div class="form-group">
-                    <label for="id_tutoring">id_tutoring</label>
-                    <input type="int" name="id_tutoring" value="" class="form-control" id="id_tutoring" placeholder="id_tutoring">
-                </div>
+
                 <div class="form-group">
                     <label for="topic">topic</label>
                     <input type="text" name="topic" value="" class="form-control" id="topic" placeholder="topic">

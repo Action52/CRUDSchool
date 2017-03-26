@@ -33,10 +33,7 @@
         $msg .= "Generated token: \n";
         $msg .= $tkn;
 
-        $msg .= "\nOnce inserted into the system, you can login as user.";
-        $msg .= "\n Thank you for your preference.";
-
-        mail($mail,"Tutoring system", $msg);
+        mail($mail,"Tutoring system", $msg,$msg);
       }
       else{
         echo "Mail no válido";

@@ -41,9 +41,12 @@ class Teacher{
 	//insertamos profesores en una tabla con postgreSql
 	public function save() {
 		try{
+			
+			$normalpass = $this->password; 
+			$hash = md5($normalpass);
 			$query = $this->con->prepare('INSERT INTO teacher(te_name, password, department) values (?,?,?)');
             $query->bindParam(1, $this->username, PDO::PARAM_STR);
-			$query->bindParam(2, $this->password, PDO::PARAM_STR);
+			$query->bindParam(2, $hash, PDO::PARAM_STR);
       $query->bindParam(3, $this->department, PDO::PARAM_STR);
 			$query->execute();
 			$this->con->close();
@@ -184,7 +187,7 @@ class Teacher{
 		}
 
     public static function baseurl() {
-         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/2doParcial/CRUDSchool/school/";
+         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/crudschool/";
     }
 
     public function checkUser($user) {

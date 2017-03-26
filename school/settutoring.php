@@ -1,3 +1,11 @@
+
+<?php
+include('session.php');
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +21,8 @@
     <div class="container">
         <div class="col-lg-12">
           <?php
-          $idTeacher = $_POST['idTeacher'];
-          echo $_POST['idTeacher'];
+          $idTeacher = $_SESSION['id'];
+          echo $_SESSION['id'];
           $db = new Database;
           $user = new Teacher($db);
           $subject = new Subject($db);
@@ -23,7 +31,7 @@
             <h2 class="text-center text-primary">Add Tutoring</h2>
           <form action="addtutoring.php" method="POST">
 
-                <?php $idTeacher = $_POST['idTeacher'];?>
+                <?php $idTeacher = $_SESSION['id'];?>
                 <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $idTeacher?>">
 
                 <div class="form-group">
@@ -44,7 +52,6 @@
                 </div>
                 <input type="submit" name="submitBtn" class="btn btn-default" value="Save Tutoring session" />
             </form>
-
         </div>
     </div>
 

@@ -1,3 +1,11 @@
+<?php
+include('session.php');
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,9 +20,9 @@
     <div class="container">
         <div class="col-lg-12">
             <h2 class="text-center text-primary">Set class hours</h2>
-            <?php echo $_POST['idTeacher'];?>
+            <?php echo $_SESSION['id'];?>
             <form action = "<?php echo Teacher::baseurl() ?>setclass.php" method = "POST">
-            <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $_POST['idTeacher']?>">
+            <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $_SESSION['idTeacher']?>">
             <br>
             <input type="submit" name="submit" class="btn btn-default" value="Create classes" />
             </form>

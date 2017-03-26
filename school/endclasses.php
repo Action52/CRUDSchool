@@ -1,4 +1,10 @@
 <?php
+
+include('session.php');
+
+
+
+
   $idTeacher = $_POST['idTeacher'];
   require_once "Teacher.php";
   require_once("Database.php");
@@ -9,7 +15,7 @@
   $teacher->registerClasses();
 
 
-  header('Location: index.php');
+  header('Location: teacherlanding.php');
 
 
 ?>

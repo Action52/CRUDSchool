@@ -1,3 +1,7 @@
+<?php
+include('../session.php');
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,6 +15,8 @@
         $db = new Database;
         $user = new User($db);
         $users = $user->get();
+        $id = $_SESSION['id'];
+        echo $id;
         ?>
         <div class="container">
             <div class="col-lg-12">
@@ -35,6 +41,8 @@
                     <?php foreach( $users as $user )
                     {
                     ?>
+
+
                         <tr>
                             <td><?php echo $user->id ?></td>
                             <td><?php echo $user->st_name ?></td>
@@ -52,6 +60,7 @@
                     }
                     ?>
                 </table>
+                <b id="logout"><a href="../logout.php">Log Out</a></b> 
                 <?php
                 }
                 else
@@ -62,7 +71,7 @@
                 }
                 ?>
             </div>
-            <a href = "../index.php">Go to index</a>
+          
         </div>
     </body>
 </html>

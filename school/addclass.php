@@ -1,4 +1,10 @@
 <?php
+include('session.php');
+
+
+
+?>
+<?php
   require_once "Subject.php";
   require_once "ClassHours.php";
   require_once "Teacher.php";

@@ -27,7 +27,6 @@
                         <th>Id</th>
                         <th>Username</th>
                         <th>Password</th>
-                        <th>Department</th>
                         <th>Actions</th>
                     </tr>
                     <?php foreach( $users as $user )
@@ -37,7 +36,7 @@
                             <td><?php echo $user->id ?></td>
                             <td><?php echo $user->te_name ?></td>
                             <td><?php echo $user->password ?></td>
-                            <td><?php echo $user->department ?></td>
+                        
                             <td>
                                 <?php $idTeacher = $user->id;
                                 echo $idTeacher;?>

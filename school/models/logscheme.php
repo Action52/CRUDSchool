@@ -91,7 +91,7 @@ class logscheme  {
     }
 
     public static function baseurl() {
-         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/html/usuario2/";
+         return stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST'] . "/crudschool/";
     }
 
     public function checkUser($user) {

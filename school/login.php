@@ -22,19 +22,50 @@ if(trim($_POST["username"]) != "" && trim($_POST["password"]) != "")
  // o puedes convertir los a su entidad HTML aplicable con htmlentities
  $user = strtolower(htmlentities($_POST["username"], ENT_QUOTES));
  $password = $_POST["password"];
+ $password = md5($password);
  $result = pg_query('SELECT username,password, type FROM login WHERE username=\''.$username.'\'');
  if($row = pg_fetch_array($result)){
   if($row["password"] == $password){
   	if($row["type"] == 0)
   		$_SESSION['login_user']=$username;
   		echo "Welcome admin";
-  	if($row["type"] == 1)
+  	if($row["type"] == 1){
   		$_SESSION['login_user']=$username;
-  		echo "Welcome teacher";
-  		$_SESSION['login_user']=$username;
+  		header("Location: teacherlanding.php");
+      $result = pg_query('SELECT id FROM teacher WHERE te_name = \''.$username.'\'');
+
+      if($row =  pg_fetch_array($result)){
+      $id = $row["id"];
+
+      $_SESSION['id'] = $id;
+      
+    }
+    }
+ 
   	if($row["type"] == 2){
+      $_SESSION['login_user']=$username;
   		header("Location: app/list.php");
-die();
+        
+
+        $result = pg_query('SELECT id FROM student WHERE st_name = \''.$username.'\'');
+
+      if($row =  pg_fetch_array($result)){
+      $id = $row["id"];
+
+      $_SESSION['id'] = $id;
+      
+    }
+
+
+
+
+
+
+
+
+
+
+//die();
   	}
    echo '<a href="index.php">Index</a></p>';
    //Elimina el siguiente comentario si quieres que re-dirigir automáticamente a index.php

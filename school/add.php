@@ -21,10 +21,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" value="" class="form-control" id="password" placeholder="Password">
                 </div>
-                <div class="form-group">
-                    <label for="password">Department</label>
-                    <input type="text" name="department" value="" class="form-control" id="department" placeholder="Department">
-                </div>
+               
                 <input type="submit" name="submit" class="btn btn-default" value="Save teacher" />
             </form>
         </div>
