@@ -19,7 +19,6 @@ include('../session.php');
         $id = $_SESSION['id'];
 $user->setid_teacher($id);
 
-echo $id;
 
         $users = $user->get($id);
 
@@ -28,7 +27,7 @@ echo $id;
         <div class="container">
             <div class="col-lg-12">
                 <h2 class="text-center text-primary">Apointment list by month</h2>
-               
+
 
                 <?php
                 if( ! empty( $users ) )
@@ -79,14 +78,12 @@ echo $id;
 
         <?php
         require_once "../models/logscheme.php";
-
  $db = new Database;
         $user = new logscheme($db);
 
         $id = $_SESSION['id'];
 $user->setid_teacher($id);
 
-echo $id;
 
         $users = $user->getmonth($id);
 
@@ -96,7 +93,7 @@ echo $id;
         <div class="container">
             <div class="col-lg-12">
                 <h2 class="text-center text-primary">Apointment list by week</h2>
-              
+
 
                 <?php
                 if( ! empty( $users ) )
@@ -141,12 +138,25 @@ echo $id;
                 ?>
                 </div>
 
-<a href = "../index.php">Go to index</a>
 
                 </div>
 
+                <div class="container">
+                    <div class="col-lg-12">
+                        <h2 class="text-center text-primary">Apointment list personalized</h2>
+                        <form action = "<?php echo logscheme::baseurl()?>app/listpersonalized.php" method = "POST">
+                        <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $_SESSION['id']?>">
+                        <br>
+                        <input type="date" id = "startDate" name = "startDate" value ="" class = "form-control">
+                        <input type="date" id = "endDate" name = "endDate" value ="" class = "form-control">
+                        <br>
+                        <input type="submit" name="submit" class="btn btn-default" value="Personalize search" />
+                        </form>
+                        </div>
+                        <br><br>
+                <a href = "../index.php">Go to index</a>
 
-
+                        </div>
 
 
 

@@ -22,7 +22,7 @@ include('session.php');
             <h2 class="text-center text-primary">Set class hours</h2>
             <?php echo $_SESSION['id'];?>
             <form action = "<?php echo Teacher::baseurl() ?>setclass.php" method = "POST">
-            <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $_SESSION['idTeacher']?>">
+            <input type="hidden" id = "idTeacher" name = "idTeacher" value ="<?php echo $_SESSION['id']?>">
             <br>
             <input type="submit" name="submit" class="btn btn-default" value="Create classes" />
             </form>

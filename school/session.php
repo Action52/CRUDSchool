@@ -1,5 +1,5 @@
 <?php
-$conex = "host=localhost port=5432 dbname=tutoringnew user=postgres password=";
+$conex = "host=localhost port=5432 dbname=tutoring user=leonvillapun password=schwarz";
 $cnx = pg_connect($conex) or die ("<h1>Error de conexion.</h1> ". pg_last_error());
 session_start();
 // Storing Session
