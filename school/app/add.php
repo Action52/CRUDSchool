@@ -21,11 +21,7 @@ include('../session.php');
             <h2 class="text-center text-primary">Add apointment</h2>
             <form action="<?php echo User::baseurl() ?>app/save.php" method="POST">
                 <div class="form-group">
-                    <label for="id_student">id_student</label>
-                    <input type="int" name="id_student" value="" class="form-control" id="id_student" placeholder="id_student">
-                </div>
-                <div class="form-group">
-                    <label for="id_student">tutoring</label>
+                    <label for="id_student">Hours</label>
                     <?php
 
                     $conex = "host=localhost port=5432 dbname=tutoringnew user=postgres password=";
@@ -55,7 +51,7 @@ pg_close($cnx);
 
 
                  <div class="form-group">
-                    <label for="id_subject">subject</label>
+                    <label for="id_subject">Subject</label>
                     <select name="id_subject" Id="id_subject">
  <option value="">--- Select ---</option>
                     <?php
@@ -84,11 +80,11 @@ pg_close($cnx);
                 </div>
 
                 <div class="form-group">
-                    <label for="topic">topic</label>
+                    <label for="topic">Topic</label>
                     <input type="text" name="topic" value="" class="form-control" id="topic" placeholder="topic">
                 </div>
                 <div class="form-group">
-                    <label for="date">date</label>
+                    <label for="date">Date</label>
                     <input type="date" name="date" value="" class="form-control" id="date" placeholder="date">
                 </div>
                 <input type="submit" name="submit" class="btn btn-default" value="Save user" />

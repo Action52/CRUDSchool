@@ -41,22 +41,38 @@ class User implements IUser {
     }
 
 	//insertamos usuarios en una tabla con postgreSql
-	public function save() {
-		try{
-			$query = $this->con->prepare('INSERT INTO student_requests_tutoring (id_student,id_teacher,id_subject,id_tutoring,topic,date) values (?,?,?,?,?,?)');
+	public function comprobar($id_teacher,$id_tutoring,$date) {
+	
+			$query = $this->con->prepare("SELECT * FROM student_requests_tutoring WHERE id_teacher = '$id_teacher' AND id_tutoring = '$id_tutoring' AND date = '$date'");
+            $result = $query->execute();
+            $statement = $query->fetch();
+            if($statement){ //Si existe la relacion...no hago nada
+               echo "elemento ya existe";
+               echo "<a href = 'add.php'> Back </a>";
+                die();
+            }
+
+        }
+            
+
+
+
+    public function save() {
+        try{
+            $query = $this->con->prepare('INSERT INTO student_requests_tutoring (id_student,id_teacher,id_subject,id_tutoring,topic,date) values (?,?,?,?,?,?)');
             $query->bindParam(1, $this->id_student, PDO::PARAM_STR);
-			$query->bindParam(2, $this->id_teacher, PDO::PARAM_STR);
+            $query->bindParam(2, $this->id_teacher, PDO::PARAM_STR);
              $query->bindParam(3, $this->id_subject, PDO::PARAM_STR);
             $query->bindParam(4, $this->id_tutoring, PDO::PARAM_STR);
              $query->bindParam(5, $this->topic, PDO::PARAM_STR);
             $query->bindParam(6, $this->date, PDO::PARAM_STR);
-			$query->execute();
-			$this->con->close();
-		}
+            $query->execute();
+            $this->con->close();
+        }
         catch(PDOException $e) {
-	        echo  $e->getMessage();
-	    }
-	}
+            echo  $e->getMessage();
+        }
+    }
 
     public function update(){
 		try{

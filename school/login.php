@@ -28,7 +28,7 @@ if(trim($_POST["username"]) != "" && trim($_POST["password"]) != "")
   if($row["password"] == $password){
   	if($row["type"] == 0)
   		$_SESSION['login_user']=$username;
-  		echo "Welcome admin";
+  		header("Location: adminlanding.php");
   	if($row["type"] == 1){
   		$_SESSION['login_user']=$username;
   		header("Location: teacherlanding.php");
